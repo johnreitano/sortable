@@ -1,0 +1,28 @@
+<h1>Editing customer</h1>
+<%= render "form", customer: @customer %>
+<div>
+  <div class="row">
+    <div class="col-sm-6">
+      <h4>Highlights</h4>
+    </div>
+    <div class="col-sm-6 text-right">
+      <%= link_to new_customer_highlight_path(@customer), class: 'btn btn-primary' do %>
+        Add New Highlight
+      <% end %>
+    </div>
+  </div>
+  <div data-controller="drag" data-drag-url="/customers/<%= @customer.id %>/highlights/:id.json">
+    <% @customer.highlights.order(:position).each do |highlight| %>
+      <div data-id="<%= highlight.id %>" class="card card-body mb-4">
+        <%= highlight.name %> <%= link_to 'Edit', edit_customer_highlight_path(@customer, highlight) %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div>
+  <%= link_to 'Destroy this customer', customer_path(@customer), data: { "turbo-method": :delete }, class: "btn btn-danger" %>
+</div>
+<br>
+<div>
+  <%= link_to "Back to customers", customers_path %>
+</div>

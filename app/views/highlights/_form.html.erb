@@ -1,0 +1,23 @@
+<%= form_with(model: highlight, url: highlight.persisted? ? customer_highlight_path(@customer, highlight) : customer_highlights_path(@customer)) do |form| %>
+  <% if highlight.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(highlight.errors.count, "error") %> prohibited this highlight from being saved:</h2>
+      <ul>
+        <% highlight.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.label :color, style: "display: block" %>
+    <%= form.text_field :color %>
+  </div>
+  <div>
+    <%= form.submit highlight.persisted? ? "Update Highlight" : "Create Highlight", class: "btn btn-primary" %>
+  </div>
+<% end %>
