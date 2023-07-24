@@ -3,6 +3,6 @@
 // ./bin/rails generate stimulus controllerName
 
 import { application } from './application'
-import DragController from './drag_controller'
 
+import DragController from './drag_controller'
 application.register('drag', DragController)
