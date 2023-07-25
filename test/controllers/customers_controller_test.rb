@@ -20,17 +20,17 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
       post customers_url, params: { customer: { name: @customer.name } }
     end
 
-    assert_redirected_to edit_customer_url(Customer.last)
+    assert_redirected_to edit_customer_path(Customer.last)
   end
 
   test "should get edit" do
-    get edit_customer_url(@customer)
+    get edit_customer_path(@customer)
     assert_response :success
   end
 
   test "should update customer" do
     patch customer_url(@customer), params: { customer: { name: @customer.name } }
-    assert_redirected_to edit_customer_url(@customer)
+    assert_redirected_to edit_customer_path(@customer)
   end
 
   test "should destroy customer" do

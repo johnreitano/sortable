@@ -1,0 +1,7 @@
+<div class="text-md text-left mb-6"><%= link_to "Home", root_path, class: "text-blue-600 hover:underline" %> &#187; <%= link_to "Customers", customers_path, class: "text-blue-600 hover:underline" %> &#187; <%= @customer.name %> &#187; HighlightType "<%= @highlight_type.name %>"</div>
+<div class="text-2xl text-left mb-6">Edit HighlightType</div>
+<%= render "form", highlight_type: @highlight_type %>
+<br>
+<div>
+  <%= link_to 'Delete Highlight Type', customer_highlight_type_path(@customer, @highlight_type), data: { "turbo-method": :delete }, class: "bg-red-600 px-3 py-3 text-base text-white rounded-md hover:bg-red-700 hover:border-red-700 border-transparent border-solid cursor-pointer inline-block" %>
+</div>

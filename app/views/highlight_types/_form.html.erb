@@ -1,0 +1,36 @@
+<div class="border-2 border-gray-200">
+  <%= form_with(model: highlight_type, url: highlight_type.persisted? ? customer_highlight_type_path(@customer, highlight_type) : customer_highlight_types_path(@customer), class: "border border-gray-300") do |form| %>
+    <% if highlight_type.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(highlight_type.errors.count, "error") %> prohibited this highlight_type from being saved:</h2>
+        <ul>
+          <% highlight_type.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="md:flex md:items-center mb-6 pt-6">
+      <div class="md:w-1/3">
+        <%= form.label 'Name', class: "block md:text-right mb-1 md:mb-0 pr-4" %>
+      </div>
+      <div class="md:w-1/3">
+        <%= form.text_field :name, class: "bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-600" %>
+      </div>
+    </div>
+    <div class="md:flex md:items-center mb-6 pt-6">
+      <div class="md:w-1/3">
+        <%= form.label 'Color', class: "block md:text-right mb-1 md:mb-0 pr-4" %>
+      </div>
+      <div class="md:w-1/3">
+        <%= form.text_field :color, class: "bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-600" %>
+      </div>
+    </div>
+    <div class="md:flex md:items-center pb-6">
+      <div class="md:w-1/3"></div>
+      <div class="md:w-1/3">
+        <%= form.submit highlight_type.persisted? ? "Update Highlight Type" : "Create Highlight Type", class: "bg-blue-600 px-3 py-3 text-base text-white rounded-md hover:bg-blue-700 hover:border-blue-700 border-transparent border-solid cursor-pointer" %>
+      </div>
+    </div>
+  <% end %>
+</div>

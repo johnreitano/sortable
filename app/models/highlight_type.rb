@@ -1,4 +1,4 @@
-class Highlight < ApplicationRecord
+class HighlightType < ApplicationRecord
   belongs_to :customer
   acts_as_list scope: :customer, add_new_at: :top, top_of_list: 0
   validates :name, presence: true, uniqueness: { scope: :customer_id }

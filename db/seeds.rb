@@ -1,9 +1,9 @@
 Customer.destroy_all
 
-o = Customer.create! name: 'Oppenheimer'
-h = Customer.create! name: 'Heisenberg'
+o = Customer.create! name: 'J. Robert Oppenheimer'
+h = Customer.create! name: 'Werner Heisenberg'
 
-o.highlights.create! name: 'Positive Reaction', color: '#green'
-o.highlights.create! name: 'Insight', color: '#blue'
-o.highlights.create! name: 'Action Item', color: '#white'
+o.highlight_types.create! name: 'Positive Reaction', color: '#green'
+o.highlight_types.create! name: 'Insight', color: '#blue'
+o.highlight_types.create! name: 'Action Item', color: '#white'
 

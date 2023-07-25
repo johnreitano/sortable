@@ -1,28 +1,26 @@
-<h1>Editing customer</h1>
+<div class="text-md text-left mb-6"><%= link_to "Home", root_path, class: "text-blue-600 hover:underline" %> &#187; <%= link_to "Customers", customers_path, class: "text-blue-600 hover:underline" %> &#187; <%= @customer.name %> </div>
+<div class="text-2xl text-left mb-6">Customer Profile</div>
 <%= render "form", customer: @customer %>
-<div>
-  <div class="row">
-    <div class="col-sm-6">
-      <h4>Highlights</h4>
+<div class="border-1 md:mx-8">
+  <div class="columns-2 flex items-center justify-between py-4">
+    <div class="">
+      <h4 class="text-2xl">Highlight Types</h4>
     </div>
-    <div class="col-sm-6 text-right">
-      <%= link_to new_customer_highlight_path(@customer), class: 'btn btn-primary' do %>
-        Add New Highlight
+    <div class="text-right border">
+      <%= link_to new_customer_highlight_type_path(@customer), class: 'bg-green-600 px-3 py-3 text-base text-white rounded-md hover:bg-green-700 hover:border-green-700 border-transparent border-solid cursor-pointer inline-block' do %>
+        Add New Highlight Type
       <% end %>
     </div>
   </div>
-  <div data-controller="drag" data-drag-url="/customers/<%= @customer.id %>/highlights/:id.json">
-    <% @customer.highlights.order(:position).each do |highlight| %>
-      <div data-id="<%= highlight.id %>" class="card card-body mb-4">
-        <%= highlight.name %> <%= link_to 'Edit', edit_customer_highlight_path(@customer, highlight) %>
+  <div data-controller="drag" data-drag-url="/customers/<%= @customer.id %>/highlight_types/:id.json", class="py-4">
+    <% @customer.highlight_types.order(:position).each do |highlight_type| %>
+      <div data-id="<%= highlight_type.id %>" class="card card-body mb-4 border-b">
+        <i class="fas fa-arrows-alt drag-handle"></i>&nbsp;&nbsp;
+        <%= link_to highlight_type.name, edit_customer_highlight_type_path(@customer, highlight_type), class: "text-blue-600 hover:underline" %>
       </div>
     <% end %>
   </div>
 </div>
 <div>
-  <%= link_to 'Destroy this customer', customer_path(@customer), data: { "turbo-method": :delete }, class: "btn btn-danger" %>
-</div>
-<br>
-<div>
-  <%= link_to "Back to customers", customers_path %>
+  <%= link_to 'Delete Customer', customer_path(@customer), data: { "turbo-method": :delete }, class: "bg-red-600 px-3 py-3 text-base text-white rounded-md hover:bg-red-700 hover:border-red-700 border-transparent border-solid cursor-pointer inline-block" %>
 </div>

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root "customers#index"
   resources :customers do
-    resources :highlights
+    resources :highlight_types
   end
 end

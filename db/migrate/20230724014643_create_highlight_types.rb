@@ -1,6 +1,6 @@
-class CreateHighlights < ActiveRecord::Migration[7.0]
+class CreateHighlightTypes < ActiveRecord::Migration[7.0]
   def change
-    create_table :highlights do |t|
+    create_table :highlight_types do |t|
       t.string :name
       t.string :color
       t.integer :position

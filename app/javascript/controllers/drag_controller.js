@@ -6,7 +6,9 @@ export default class extends Controller {
     this.sortable = Sortable.create(this.element, {
       onEnd: this.end.bind(this),
       animation: 150,
-      ghostClass: 'bg-info',
+      handle: '.drag-handle',
+      ghostClass: 'bg-amber-100',
+      selectedClass: 'bg-amber-100',
       dragClass: 'invisible',
     })
   }
@@ -14,7 +16,7 @@ export default class extends Controller {
   end(event) {
     let url = this.data.get('url').replace(':id', event.item.dataset.id)
     let formData = new FormData()
-    formData.append('highlight[position]', event.newIndex)
+    formData.append('highlight_type[position]', event.newIndex)
     fetch(url, {
       body: formData,
       method: 'PATCH',

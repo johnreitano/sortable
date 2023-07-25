@@ -17,7 +17,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_24_014643) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "highlights", force: :cascade do |t|
+  create_table "highlight_types", force: :cascade do |t|
     t.string "name"
     t.string "color"
     t.integer "position"
@@ -27,5 +27,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_24_014643) do
     t.index ["customer_id"], name: "index_highlights_on_customer_id"
   end
 
-  add_foreign_key "highlights", "customers"
+  add_foreign_key "highlight_types", "customers"
 end

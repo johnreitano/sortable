@@ -1,24 +1,32 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Testing via curl
 
-Things you may want to cover:
+- add delete and show
 
-* Ruby version
+- PATCH
 
-* System dependencies
+```
+curl -X PATCH http://localhost:3000/customers/1/highlight_types/2 \
+     -H 'Content-Type: application/json' \
+     -H 'Accept: application/json' \
+     -d '{"skip_verify_authenticity_token": true, "highlight_type": { "position": 0 } }'
+```
 
-* Configuration
+- POST to the top
 
-* Database creation
+```
+curl -X POST http://localhost:3000/customers/1/highlight_types \
+     -H 'Content-Type: application/json' \
+     -H 'Accept: application/json' \
+     -d '{"skip_verify_authenticity_token": true, "highlight_type": { "name": "Danger", "color": "#red" } }'
+```
 
-* Database initialization
+- POST to arbitrary position
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+curl -X POST http://localhost:3000/customers/1/highlight_types \
+     -H 'Content-Type: application/json' \
+     -H 'Accept: application/json' \
+     -d '{"skip_verify_authenticity_token": true, "highlight_type": { "name": "Unclear", "color": "#red", "position": 2 } }'
+```
