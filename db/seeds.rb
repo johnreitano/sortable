@@ -1,9 +1,8 @@
-Customer.destroy_all
+return if Customer.any?
 
-o = Customer.create! name: 'J. Robert Oppenheimer'
-h = Customer.create! name: 'Werner Heisenberg'
+oppy = Customer.create! name: 'J. Robert Oppenheimer'
+oppy.highlight_types.create! name: 'Positive Reaction', color: '#green'
+oppy.highlight_types.create! name: 'Insight', color: '#blue'
+oppy.highlight_types.create! name: 'Action Item', color: '#white'
 
-o.highlight_types.create! name: 'Positive Reaction', color: '#green'
-o.highlight_types.create! name: 'Insight', color: '#blue'
-o.highlight_types.create! name: 'Action Item', color: '#white'
-
+Customer.create! name: 'Werner Heisenberg'
