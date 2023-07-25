@@ -1,4 +1,4 @@
-<div class="text-md text-left mb-6"><%= link_to "Home", root_path, class: "text-blue-600 hover:underline" %> &#187; <%= link_to "Customers", customers_path, class: "text-blue-600 hover:underline" %> &#187; <%= @customer.name %> &#187; HighlightType "<%= @highlight_type.name %>"</div>
+<div class="text-md text-left mb-6"><%= link_to "Home", root_path, class: "text-blue-600 hover:underline" %> &#187; <%= link_to "Customers", customers_path, class: "text-blue-600 hover:underline" %> &#187; <%= link_to @customer.name, edit_customer_path(@customer), class: "text-blue-600 hover:underline" %> &#187; HighlightType "<%= @highlight_type.name %>"</div>
 <div class="text-2xl text-left mb-6">Edit HighlightType</div>
 <%= render "form", highlight_type: @highlight_type %>
 <br>
