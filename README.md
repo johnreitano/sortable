@@ -1,32 +1,5 @@
 # README
 
-### Testing via curl
+This is a code spike showing how one might manually sort items in a list using Javascript on the frontend and Ruby on the backend. The backend will reject moves that originate from an outdated list.
 
-- add delete and show
-
-- PATCH
-
-```
-curl -X PATCH http://localhost:3000/customers/1/highlight_types/2 \
-     -H 'Content-Type: application/json' \
-     -H 'Accept: application/json' \
-     -d '{"skip_verify_authenticity_token": true, "highlight_type": { "position": 0 } }'
-```
-
-- POST to the top
-
-```
-curl -X POST http://localhost:3000/customers/1/highlight_types \
-     -H 'Content-Type: application/json' \
-     -H 'Accept: application/json' \
-     -d '{"skip_verify_authenticity_token": true, "highlight_type": { "name": "Danger", "color": "#red" } }'
-```
-
-- POST to arbitrary position
-
-```
-curl -X POST http://localhost:3000/customers/1/highlight_types \
-     -H 'Content-Type: application/json' \
-     -H 'Accept: application/json' \
-     -d '{"skip_verify_authenticity_token": true, "highlight_type": { "name": "Unclear", "color": "#red", "position": 2 } }'
-```
+For the core code behavior, see the tests in [test/controllers/highlight_types_controller_test.rb](test/controllers/highlight_types_controller_test.rb).

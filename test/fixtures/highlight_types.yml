@@ -16,4 +16,10 @@ three:
   name: 'Comment'
   color: '#blue'
   position: 2
+  customer: one
+
+four:
+  name: 'Another Comment'
+  color: '#orange'
+  position: 2
   customer: two
