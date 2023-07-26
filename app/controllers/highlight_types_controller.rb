@@ -48,6 +48,7 @@ class HighlightTypesController < ApplicationController
         if @highlight_type.move(move_params[:position], move_params[:highlight_types_fingerprint])
           render :show, status: :ok
         else
+          flash.keep[:notice] = "Your change could not be applied because another user has modified the list. Please try again."
           render json: @highlight_type.errors, status: :conflict
         end
       end
