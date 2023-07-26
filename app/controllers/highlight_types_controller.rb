@@ -30,6 +30,7 @@ class HighlightTypesController < ApplicationController
   end
 
   def update
+    # render json: '"api not available"', status: :unprocessable_entity and return
     respond_to do |format|      
       if @highlight_type.update(highlight_params)
         format.html { redirect_to edit_customer_path(@customer), notice: "Highlight type was successfully updated." }
