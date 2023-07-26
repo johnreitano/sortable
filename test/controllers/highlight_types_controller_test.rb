@@ -14,22 +14,22 @@ class HighlightTypesControllerTest
       types = JSON.parse(body)
       assert_equal types.count, @customer.highlight_types.count
       first_highlight_type = @customer.highlight_types.first
-      first_highlight_type_attrs = types[0].with_indifferent_access
-      assert_equal first_highlight_type_attrs[:id], first_highlight_type.id
-      assert_equal first_highlight_type_attrs[:name], first_highlight_type.name
-      assert_equal first_highlight_type_attrs[:color], first_highlight_type.color
-      assert_equal first_highlight_type_attrs[:position], first_highlight_type.position
+      attrs = types[0].with_indifferent_access
+      assert_equal attrs[:id], first_highlight_type.id
+      assert_equal attrs[:name], first_highlight_type.name
+      assert_equal attrs[:color], first_highlight_type.color
+      assert_equal attrs[:position], first_highlight_type.position
     end
 
     test "show via json" do
       get customer_highlight_type_path(@customer, @highlight_type), as: :json
       assert_response :success
       assert valid_json?(body)
-      first_highlight_type_attrs = JSON.parse(body).with_indifferent_access
-      assert_equal first_highlight_type_attrs[:id], @highlight_type.id
-      assert_equal first_highlight_type_attrs[:name], @highlight_type.name
-      assert_equal first_highlight_type_attrs[:color], @highlight_type.color
-      assert_equal first_highlight_type_attrs[:position], @highlight_type.position
+      attrs = JSON.parse(body).with_indifferent_access
+      assert_equal attrs[:id], @highlight_type.id
+      assert_equal attrs[:name], @highlight_type.name
+      assert_equal attrs[:color], @highlight_type.color
+      assert_equal attrs[:position], @highlight_type.position
     end
 
     test "create via json" do
@@ -39,11 +39,11 @@ class HighlightTypesControllerTest
       }, as: :json
       assert_response :success
       assert valid_json?(body)
-      first_highlight_type_attrs = JSON.parse(body).with_indifferent_access
-      assert first_highlight_type_attrs[:id].present?
-      assert_equal first_highlight_type_attrs[:name], "A new one"
-      assert_equal first_highlight_type_attrs[:color], "#red"
-      assert_equal first_highlight_type_attrs[:position], 0
+      attrs = JSON.parse(body).with_indifferent_access
+      assert attrs[:id].present?
+      assert_equal attrs[:name], "A new one"
+      assert_equal attrs[:color], "#red"
+      assert_equal attrs[:position], 0
     end
 
     test "update name and color via json" do
@@ -53,12 +53,12 @@ class HighlightTypesControllerTest
       }, as: :json
       assert_response :success
       assert valid_json?(body)
-      first_highlight_type_attrs = JSON.parse(body).with_indifferent_access
-      assert first_highlight_type_attrs[:id].present?
-      assert_equal first_highlight_type_attrs[:id], @highlight_type.id
-      assert_equal first_highlight_type_attrs[:name], "Insight2"
-      assert_equal first_highlight_type_attrs[:color], "#orange"
-      assert_equal first_highlight_type_attrs[:position], @highlight_type.position
+      attrs = JSON.parse(body).with_indifferent_access
+      assert attrs[:id].present?
+      assert_equal attrs[:id], @highlight_type.id
+      assert_equal attrs[:name], "Insight2"
+      assert_equal attrs[:color], "#orange"
+      assert_equal attrs[:position], @highlight_type.position
     end
 
     test "move via json (happy path)" do
@@ -70,12 +70,12 @@ class HighlightTypesControllerTest
       }, as: :json
       assert_response :success
       assert valid_json?(body)
-      first_highlight_type_attrs = JSON.parse(body).with_indifferent_access
-      assert first_highlight_type_attrs[:id].present?
-      assert_equal first_highlight_type_attrs[:id], @highlight_type.id
-      assert_equal first_highlight_type_attrs[:name], @highlight_type.name
-      assert_equal first_highlight_type_attrs[:color], @highlight_type.color
-      assert_equal first_highlight_type_attrs[:position], 0
+      attrs = JSON.parse(body).with_indifferent_access
+      assert attrs[:id].present?
+      assert_equal attrs[:id], @highlight_type.id
+      assert_equal attrs[:name], @highlight_type.name
+      assert_equal attrs[:color], @highlight_type.color
+      assert_equal attrs[:position], 0
     end
 
     test "move via json (stale list because item was destroyed)" do
