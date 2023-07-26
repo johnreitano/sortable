@@ -22,6 +22,10 @@ export default class extends Controller {
     let url = this.data.get('url').replace(':id', event.item.dataset.id)
     let formData = new FormData()
     formData.append('highlight_type[position]', event.newIndex)
+    formData.append(
+      'highlight_type[highlight_types_fingerprint]',
+      event.item.dataset.highlight_types_fingerprint
+    )
     let container = this
     fetch(url, {
       body: formData,
@@ -31,10 +35,15 @@ export default class extends Controller {
       },
     }).then((response) => {
       if (!response.ok) {
-        response.json().then((data) => {
+        response.json().then((responseBody) => {
+          let conflictStatus = 409
+          if (response.status == conflictStatus) {
+            console.log('highlight type list was stale -- reloading page')
+            location.reload()
+            return
+          }
           console.log(
-            `got unexpected response from api with status ${response.status} and body `,
-            data
+            `got unexpected response from api with status ${response.status} and body ${responseBody} - reverting to original order`
           )
           container.sortable.sort(container._originalOrder)
         })

@@ -13,7 +13,7 @@ class HighlightTypesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create highlight_type" do
     assert_difference("HighlightType.count") do
-      post customer_highlight_types_url(@customer), params: { highlight_type: { color: @highlight_type.color, name: "A new name" } }
+      post customer_highlight_types_url(@customer), params: {highlight_type: {color: @highlight_type.color, name: "A new name"}}
     end
 
     assert_redirected_to edit_customer_url(@customer)
@@ -25,7 +25,7 @@ class HighlightTypesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update highlight_type" do
-    patch customer_highlight_type_url(@customer, @highlight_type), params: { highlight_type: { color: @highlight_type.color, name: @highlight_type.name, position: @highlight_type.position } }
+    patch customer_highlight_type_url(@customer, @highlight_type), params: {highlight_type: {color: @highlight_type.color, name: @highlight_type.name, position: @highlight_type.position}}
     assert_redirected_to edit_customer_url(@customer)
   end
 
@@ -65,7 +65,7 @@ class HighlightTypesControllerTest < ActionDispatch::IntegrationTest
   test "create via json" do
     post customer_highlight_types_path(@customer), params: {
       name: "A new one",
-      color: "#red",
+      color: "#red"
     }, as: :json
     assert_response :success
     assert valid_json?(body)
@@ -76,11 +76,10 @@ class HighlightTypesControllerTest < ActionDispatch::IntegrationTest
     assert_equal first_highlight_type_attrs[:position], 0
   end
 
-  test "update via json" do
+  test "update name and color via json" do
     patch customer_highlight_type_path(@customer, @highlight_type), params: {
       name: "Insight2",
-      color: "#orange",
-      position: 0
+      color: "#orange"
     }, as: :json
     assert_response :success
     assert valid_json?(body)
@@ -89,6 +88,23 @@ class HighlightTypesControllerTest < ActionDispatch::IntegrationTest
     assert_equal first_highlight_type_attrs[:id], @highlight_type.id
     assert_equal first_highlight_type_attrs[:name], "Insight2"
     assert_equal first_highlight_type_attrs[:color], "#orange"
+    assert_equal first_highlight_type_attrs[:position], @highlight_type.position
+  end
+
+  test "move via json" do
+    patch move_customer_highlight_type_path(@customer, @highlight_type), params: {
+      highlight_type: {
+        position: 0,
+        highlight_types_fingerprint: @customer.highlight_types_fingerprint
+      }
+    }, as: :json
+    assert_response :success
+    assert valid_json?(body)
+    first_highlight_type_attrs = JSON.parse(body).with_indifferent_access
+    assert first_highlight_type_attrs[:id].present?
+    assert_equal first_highlight_type_attrs[:id], @highlight_type.id
+    assert_equal first_highlight_type_attrs[:name], @highlight_type.name
+    assert_equal first_highlight_type_attrs[:color], @highlight_type.color
     assert_equal first_highlight_type_attrs[:position], 0
   end
 

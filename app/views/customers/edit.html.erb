@@ -12,9 +12,9 @@
       <% end %>
     </div>
   </div>
-  <div data-controller="drag" data-drag-url="/customers/<%= @customer.id %>/highlight_types/:id.json", class="py-4">
+  <div data-controller="drag" data-drag-url="/customers/<%= @customer.id %>/highlight_types/:id/move.json", class="py-4">
     <% @customer.highlight_types.order(:position).each do |highlight_type| %>
-      <div data-id="<%= highlight_type.id %>" class="card card-body mb-4 border-b">
+      <div data-id="<%= highlight_type.id %>" data-highlight_types_fingerprint="<%= @customer.highlight_types_fingerprint %>" class="card card-body mb-4 border-b">
         <i class="fas fa-arrows-alt drag-handle"></i>&nbsp;&nbsp;
         <%= link_to highlight_type.name, edit_customer_highlight_type_path(@customer, highlight_type), class: "text-blue-600 hover:underline" %>
       </div>

@@ -8,7 +8,7 @@ class HighlightTypesController < ApplicationController
 
   def show
   end
-  
+
   def new
     @highlight_type = @customer.highlight_types.new
   end
@@ -30,14 +30,26 @@ class HighlightTypesController < ApplicationController
   end
 
   def update
-    # render json: '"api not available"', status: :unprocessable_entity and return
-    respond_to do |format|      
+    respond_to do |format|
       if @highlight_type.update(highlight_params)
         format.html { redirect_to edit_customer_path(@customer), notice: "Highlight type was successfully updated." }
         format.json { render :show, status: :ok }
       else
         format.html { render :edit, status: :unprocessable_entity, notice: "Highlight type update failed." }
         format.json { render json: @highlight_type.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def move
+    respond_to do |format|
+      format.html { redirect_to edit_customer_path(@customer), notice: "This action does not support html format" }
+      format.json do
+        if @highlight_type.move(move_params[:position], move_params[:highlight_types_fingerprint])
+          render :show, status: :ok
+        else
+          render json: @highlight_type.errors, status: :conflict
+        end
       end
     end
   end
@@ -51,16 +63,20 @@ class HighlightTypesController < ApplicationController
   end
 
   private
-  
-    def set_customer
-      @customer = Customer.find(params.require(:customer_id))
-    end
 
-    def set_highlight_type
-      @highlight_type = @customer.highlight_types.find(params.require(:id))
-    end
-
-    def highlight_params
-      params.require(:highlight_type).permit(:name, :color, :position)
-    end
+  def set_customer
+    @customer = Customer.find(params.require(:customer_id))
   end
+
+  def set_highlight_type
+    @highlight_type = @customer.highlight_types.find(params.require(:id))
+  end
+
+  def highlight_params
+    params.require(:highlight_type).permit(:name, :color)
+  end
+
+  def move_params
+    params.require(:highlight_type).permit(:position, :highlight_types_fingerprint)
+  end
+end
