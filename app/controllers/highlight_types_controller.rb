@@ -1,26 +1,27 @@
 class HighlightTypesController < ApplicationController
-  skip_before_action :verify_authenticity_token, if: :skip_verify_authenticity_token?
   before_action :set_customer
-  before_action :set_highlight, only: %i[ show edit update destroy ]
+  before_action :set_highlight_type, except: [:index, :new, :create]
 
   def index
-    @highlight_types = HighlightType.all
+    @highlight_types = @customer.highlight_types
   end
 
+  def show
+  end
+  
   def new
-    @highlight_type = HighlightType.new
+    @highlight_type = @customer.highlight_types.new
   end
 
   def edit
   end
 
   def create
-    @highlight_type = @customer.highlight_types.new(highlight_params)
-
+    @highlight_type = @customer.highlight_types.new(highlight_params) # new items will be placed at beginning of list
     respond_to do |format|
       if @highlight_type.save
         format.html { redirect_to edit_customer_path(@customer), notice: "Highlight type was successfully created." }
-        format.json { head :ok }
+        format.json { render :show, status: :created }
       else
         format.html { render :new, status: :unprocessable_entity, notice: "Highlight type creation failed." }
         format.json { render json: @highlight_type.errors, status: :unprocessable_entity }
@@ -32,7 +33,7 @@ class HighlightTypesController < ApplicationController
     respond_to do |format|      
       if @highlight_type.update(highlight_params)
         format.html { redirect_to edit_customer_path(@customer), notice: "Highlight type was successfully updated." }
-        format.json { head :ok }
+        format.json { render :show, status: :ok }
       else
         format.html { render :edit, status: :unprocessable_entity, notice: "Highlight type update failed." }
         format.json { render json: @highlight_type.errors, status: :unprocessable_entity }
@@ -54,16 +55,11 @@ class HighlightTypesController < ApplicationController
       @customer = Customer.find(params.require(:customer_id))
     end
 
-    def set_highlight
+    def set_highlight_type
       @highlight_type = @customer.highlight_types.find(params.require(:id))
     end
 
     def highlight_params
       params.require(:highlight_type).permit(:name, :color, :position)
     end
-
-    def skip_verify_authenticity_token?
-      Rails.env.development? && params[:skip_verify_authenticity_token].present?
-    end
-
   end

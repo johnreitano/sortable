@@ -31,7 +31,6 @@ class CustomersTest < ApplicationSystemTestCase
 
   test "should destroy Customer" do
     visit edit_customer_path(@customer)
-    take_screenshot
     click_on "Delete Customer"
     assert_text "Customer was successfully deleted."
   end

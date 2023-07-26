@@ -3,11 +3,17 @@
 one:
   name: 'Action Item'
   color: '#red'
-  position: 1
+  position: 0
   customer: one
 
 two:
   name: 'Insight'
-  color: '#blue'
+  color: '#white'
   position: 1
+  customer: one
+
+three:
+  name: 'Comment'
+  color: '#blue'
+  position: 2
   customer: two

@@ -20,11 +20,20 @@ export default class extends Controller {
     fetch(url, {
       body: formData,
       method: 'PATCH',
-      // dataType: 'script',
-      // credentials: 'include',
       headers: {
         'X-CSRF-Token': document.querySelector("[name='csrf-token']").content,
       },
+    }).then((response) => {
+      if (!response.ok) {
+        response
+          .json()
+          .then((data) =>
+            console.log(
+              `got unexpected response from api with status ${response.status} and body `,
+              data
+            )
+          )
+      }
     })
   }
 }
